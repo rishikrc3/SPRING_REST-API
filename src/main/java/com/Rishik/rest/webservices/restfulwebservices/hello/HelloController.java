@@ -1,11 +1,12 @@
 package com.Rishik.rest.webservices.restfulwebservices.hello;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
-    @RequestMapping("/hello")
+    @GetMapping(path="/hello")
     public String sayHi()
     {
         return "HI, from spring boot";
