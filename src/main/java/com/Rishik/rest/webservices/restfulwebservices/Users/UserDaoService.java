@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class UserDaoService {
 
-    private List<User> users = new ArrayList<>(Arrays.asList(
+    private final List<User> users = new ArrayList<>(Arrays.asList(
             new User(1,"Rishik Chakravarty" ,"14/02/2002"),
             new User(2, "Lojens Chakravarty", "15/12/2020"),
             new User(3, "Gregory House", "11/07/1959")));
@@ -26,5 +26,10 @@ public class UserDaoService {
         return users.stream()
                 .filter(user->user.getId().equals(id))
                 .findFirst().orElse(null);
+    }
+
+    public void addUser(User user)
+    {
+        users.add(user);
     }
 }
