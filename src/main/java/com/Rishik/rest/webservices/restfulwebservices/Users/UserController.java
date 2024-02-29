@@ -7,10 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserDaoService userDaoService;
@@ -18,7 +22,13 @@ public class UserController {
     @GetMapping(path = "/users")
     public List<User> retrieveAllUsers()
     {
-        return userDaoService.getAllUsers();
+
+        //return userDaoService.getAllUsers();
+        List<User>users = new ArrayList<>();
+        userRepository.findAll()
+                .forEach(users::add);
+
+        return users;
     }
     @GetMapping(path="/users/{id}")
     public User retrieveSpecificUser(@PathVariable Integer id)

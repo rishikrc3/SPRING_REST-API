@@ -1,10 +1,20 @@
 package com.Rishik.rest.webservices.restfulwebservices.Users;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+
+
+
+@Entity(name="user_details")
+
 public class User {
-    @NotNull(message = "ID is requires")
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @NotBlank(message = "Name is requiresd")
