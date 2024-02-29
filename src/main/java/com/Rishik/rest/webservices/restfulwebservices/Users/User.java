@@ -1,7 +1,13 @@
 package com.Rishik.rest.webservices.restfulwebservices.Users;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class User {
+    @NotNull(message = "ID is requires")
     private Integer id;
+
+    @NotBlank(message = "Name is requiresd")
     private String name;
     private String birthDate;
 

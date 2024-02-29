@@ -32,4 +32,9 @@ public class UserDaoService {
     {
         users.add(user);
     }
+
+    public void deleteUser(Integer id, User user)
+    {
+        users.removeIf(u->u.getId().equals(id));
+    }
 }

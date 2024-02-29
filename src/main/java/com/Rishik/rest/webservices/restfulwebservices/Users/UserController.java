@@ -1,6 +1,10 @@
 package com.Rishik.rest.webservices.restfulwebservices.Users;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +23,29 @@ public class UserController {
     @GetMapping(path="/users/{id}")
     public User retrieveSpecificUser(@PathVariable Integer id)
     {
-        return userDaoService.getUser(id);
+        User user= userDaoService.getUser(id);
+        if(user==null)
+        {
+            throw new UserNotFoundException("User not found for id:"+id);
+
+        }
+        return user;
     }
     @PostMapping(path = "/users")
-    public String addUser(@RequestBody User user)
+    public ResponseEntity<String> addUser(@Valid @RequestBody User user, BindingResult bindingResult)
     {
+        if(bindingResult.hasErrors())
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation Errors "+bindingResult.getAllErrors());
+        }
          userDaoService.addUser(user);
-         return "New user, added";
+        return ResponseEntity.status(HttpStatus.CREATED).body("New user added successfully");
+    }
+
+    @DeleteMapping(path="users/{id}")
+    public String deleteUser(@PathVariable Integer id, @RequestBody User user)
+    {
+        userDaoService.deleteUser(id,user);
+        return "User, deleted";
     }
 }
